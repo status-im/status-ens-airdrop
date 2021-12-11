@@ -1,15 +1,18 @@
-# Basic Sample Hardhat Project
+# Status ENS Airdrop
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+## Setup
 
-Try running some of the following tasks:
+`git@github.com:status-im/status-ens-airdrop.git`
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+`cd status-end-airdrop`
+
+`yarn`
+
+## Compile Smart Contracts
+
+`npx hardhat compile`
+
+## Test
+
+`TODO`
+
