@@ -33,7 +33,7 @@ contract StatusENSAirdrop {
   }
 
   function claim(uint256 index, address account, uint256 amount, bytes32[] calldata merkleProof) external {
-    require(!isClaimed(index), 'MerkleDistributor: Drop already claimed.');
+    require(!isClaimed(index), 'StatusENSAirdrop: Drop already claimed.');
 
     // Verify the merkle proof.
     bytes32 node = keccak256(abi.encodePacked(index, account, amount));
