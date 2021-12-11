@@ -23,3 +23,4 @@
 - [ ] Airdrop Contract unit tests
 - [ ] Deploy script
 - [ ] Integration test script with ethereum fork
+- [ ] Client app
