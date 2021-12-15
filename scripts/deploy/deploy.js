@@ -17,6 +17,7 @@ async function main() {
   console.log(`network: ${network.name}`);
   console.log(`account: ${account.address}`);
   console.log("account balance:", accountBalance.toString(), "(", ethers.utils.formatEther(accountBalance), ")");
+  console.log(`MERKLE_ROOT: ${MERKLE_ROOT}`);
   await prompt("do you want to deploy the StatusENSAirdrop contract?");
 
   const StatusENSAirdrop = await hre.ethers.getContractFactory("StatusENSAirdrop");
