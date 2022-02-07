@@ -4,18 +4,17 @@ pragma solidity ^0.8.10;
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-import "hardhat/console.sol";
-
 contract StatusENSAirdrop {
   event Claimed(uint256 index, address account, uint256 amount);
 
-  address public immutable ENS = 0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72;
+  address public immutable token;
   bytes32 public immutable merkleRoot;
 
   mapping(uint256 => uint256) private claimedBitMap;
 
-  constructor(bytes32 _merkleRoot) {
+  constructor(bytes32 _merkleRoot, address _token) {
     merkleRoot = _merkleRoot;
+    token = _token;
   }
 
   function isClaimed(uint256 index) public view returns (bool) {
@@ -41,7 +40,7 @@ contract StatusENSAirdrop {
 
     // Mark it claimed and send the token.
     _setClaimed(index);
-    require(IERC20(ENS).transfer(account, amount), 'StatusENSAirdrop: Transfer failed.');
+    require(IERC20(token).transfer(account, amount), 'StatusENSAirdrop: Transfer failed.');
 
     emit Claimed(index, account, amount);
   }
