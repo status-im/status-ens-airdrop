@@ -4,7 +4,7 @@
 
 `git@github.com:status-im/status-ens-airdrop.git`
 
-`cd status-end-airdrop/contracts`
+`cd status-ens-airdrop/contracts`
 
 `yarn`
 
