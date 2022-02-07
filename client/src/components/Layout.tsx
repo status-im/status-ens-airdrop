@@ -8,7 +8,11 @@ import {
 import "../styles/reset.scss";
 import "../styles/layout.scss";
 
-export default function(ownProps: any) {
+interface Props {
+  children: JSX.Element
+}
+
+export default function(ownProps: Props) {
   const props = useSelector((state: RootState) => {
     return {
     }
@@ -21,6 +25,9 @@ export default function(ownProps: any) {
   /* }); */
 
   return <div className="main">
-    Hello
+    <header>
+      HEADER
+    </header>
+    {ownProps.children}
   </div>;
 }

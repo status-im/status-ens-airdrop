@@ -40,8 +40,9 @@ StatusENSAirdrop deployed to: 0x...
 
 ## TODO
 
-- [ ] Airdrop Contract
+- [x] Airdrop Contract
 - [ ] Airdrop Contract unit tests
-- [ ] Deploy script
+- [x] Deploy script
+- [ ] Script to send ENS tokens to the contract
 - [ ] Integration test script with ethereum fork
 - [ ] Client app

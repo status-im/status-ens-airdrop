@@ -1,5 +1,4 @@
-// import Web3 from 'web3';
-class Web3{}
+import Web3 from 'web3';
 
 export interface Config {
   web3: Web3 | undefined
