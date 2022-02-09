@@ -1,0 +1,32 @@
+import { Claim } from "./types";
+
+interface Config {
+  merkleRoot: string
+  contract: string
+  data: {
+    root: string
+    claims: {
+      [key: string]: Claim
+    }
+  }
+}
+
+const config: Config = {
+  merkleRoot: "0x",
+  contract: "0x",
+  data: {
+    root: '0x',
+    claims: {
+      '0x': {
+        index: 0,
+        address: '0x',
+        amount: '10000000000000000000',
+        proof: [
+          '0x'
+        ]
+      },
+    }
+  }
+}
+
+export default config;

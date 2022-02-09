@@ -25,6 +25,7 @@ export const web3Reducer = (state: Web3State = initialState, action: Web3Actions
     case WEB3_INITIALIZED: {
       return {
         ...state,
+        error: undefined,
         initialized: true,
       }
     }

@@ -1,10 +1,9 @@
 import Web3 from 'web3';
 
-export interface Config {
+export interface Global {
   web3: Web3 | undefined
 }
 
-export const config: Config = {
+export const global: Global = {
   web3: undefined,
 };
-

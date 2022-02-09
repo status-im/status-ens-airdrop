@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { config } from '../global';
+import { global } from '../global';
 import {
   Dispatch,
 } from 'redux';
@@ -66,6 +66,11 @@ export const web3AccountLoaded = (account: string): Web3Actions => ({
   account: account,
 });
 
+export const notWeb3Browser = (): Web3Actions => ({
+  type: WEB3_ERROR,
+  error: "not a web3 browser",
+});
+
 declare global {
   interface Window {
     ethereum: any
@@ -73,7 +78,6 @@ declare global {
 }
 
 export const initializeWeb3 = () => {
-  // const w = window as Web3Window;
   if (window.ethereum) {
     return (dispatch: Dispatch, getState: () => RootState) => {
       window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -84,10 +88,11 @@ export const initializeWeb3 = () => {
       .catch((err: string) => {
         //FIXME: handle error
         console.log("error", err)
+        dispatch(web3Error("Unable to connect web3 account"));
       });
     }
   } else {
-    // FIXME: add warning/error
+    return notWeb3Browser();
   }
 }
 
@@ -96,8 +101,8 @@ const loadWeb3Data = () => {
     const t: Web3Type = window.ethereum.isStatus ? Web3Type.Status : Web3Type.Generic;
     dispatch(web3Initialized(t));
 
-    config.web3 = new Web3(window.ethereum);
-    config.web3!.eth.getChainId().then((id: number) => {
+    global.web3 = new Web3(window.ethereum);
+    global.web3!.eth.getChainId().then((id: number) => {
       if (id !== VALID_CHAIN_ID && id !== LOCAL_CHAIN_ID) {
         dispatch(web3Error(`wrong network, please connect to ${VALID_NETWORK_NAME}`));
         return;
@@ -106,7 +111,7 @@ const loadWeb3Data = () => {
       dispatch(web3ChainIDLoaded(id))
     });
 
-    config.web3!.eth.getAccounts().then((accounts: string[]) => {
+    global.web3!.eth.getAccounts().then((accounts: string[]) => {
       if (accounts.length > 0) {
         dispatch(web3AccountLoaded(accounts[0]))
       }

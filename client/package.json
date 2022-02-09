@@ -18,6 +18,8 @@
     "crypto-browserify": "^3.12.0",
     "http": "npm:stream-http",
     "https": "npm:https-browserify",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.2.27",
     "node-sass": "^7.0.1",
     "os": "npm:os-browserify",
     "process": "^0.11.10",

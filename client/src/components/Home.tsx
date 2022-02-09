@@ -5,38 +5,32 @@ import {
   shallowEqual,
 } from 'react-redux';
 import { RootState } from "../reducers";
-import { initializeWeb3 } from "../actions/web3";
+import { initializeDistribution } from "../actions/distribution";
+import Claim from "./Claim";
 
 export default function() {
   const dispatch = useDispatch();
   const props = useSelector((state: RootState) => ({
-    initialized: state.web3.initialized,
-    chainID: state.web3.chainID,
+    distributionInitialized: state.distribution.initialized,
     account: state.web3.account,
+    claim: state.distribution.claim,
   }), shallowEqual);
 
   useEffect(() => {
-    if (!props.initialized) {
-      dispatch(initializeWeb3());
+    if (props.account != undefined && !props.distributionInitialized) {
+      dispatch(initializeDistribution(props.account!));
     }
-  }, [props.initialized]);
-
-  const connectHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch(initializeWeb3());
-  }
+  }, [props.distributionInitialized, props.account]);
 
   return <>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      <br />
-      {props.initialized && <>
-        Welcome {props.account} (chainID: {props.chainID})
-      </>}
+    <div>
+      {props.distributionInitialized && props.claim == undefined && <div>
+        Address not found
+      </div>}
 
-      {!props.initialized && <>
-        <button onClick={connectHandler}>CONNECT</button>
-      </>}
-    </p>
+      {props.distributionInitialized && props.claim !== undefined && <div>
+        <Claim claim={props.claim} />
+      </div>}
+    </div>
   </>;
 }
