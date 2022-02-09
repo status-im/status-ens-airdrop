@@ -1,22 +1,30 @@
-const hre = require("hardhat");
 const MT = require('merkletreejs')
-const MerkleTree = require('../../lib/merkleTree')
+const MerkleTree = require('../lib/merkleTree')
+const fs = require('fs');
+const util = require('util')
 
-async function main() {
-  const tree = new MerkleTree(data);
-  console.log(" root:", tree.getRoot());
-  const leaf = tree.hashItem(data[0]);
-  console.log(" leaf:", leaf.toString("hex"))
-  const proof = tree.getProof(leaf);
-  console.log("proof:", tree.tree.getHexProof(leaf));
-  console.log(tree.verify(proof, leaf))
-}
+task("generate-merkle-tree", "Generates Merkle Tree")
+  .addParam("file", "Data file path")
+  .setAction(async ({ file }) => {
+    const content = fs.readFileSync(file);
+    const data = JSON.parse(content);
+    const tree = new MerkleTree(data);
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
+    const out = {
+      root: undefined,
+      claims: {},
+    };
+
+    out.root = tree.getRoot();
+    data.forEach(item => {
+      const leaf = tree.hashItem(item);
+      const proof = tree.getProof(leaf);
+      out.claims[item.address] = {
+        ...item,
+        proof,
+      };
+    });
+
+    // console.log(tree.verify(proof, leaf))
+    console.log(util.inspect(out, { showHidden: false, depth: null }));
   });

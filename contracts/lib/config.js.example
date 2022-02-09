@@ -1,0 +1,12 @@
+const config = {
+  mainnet: {
+    token: "0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72" // ENS
+  },
+  rinkeby: {
+    token: "0x",
+    merkleRoot: "0x",
+    contract: "0x",
+  }
+}
+
+module.exports = config;

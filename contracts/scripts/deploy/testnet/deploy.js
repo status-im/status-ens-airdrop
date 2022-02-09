@@ -2,8 +2,6 @@ const hre = require("hardhat");
 const { prompt } = require("../../lib/utils");
 const allConfig = require("../../lib/config");
 
-const MERKLE_ROOT = undefined;
-
 async function main() {
   const network = await ethers.provider.getNetwork();
   const config = allConfig[network.name]
@@ -15,8 +13,8 @@ async function main() {
   const [account] = await ethers.getSigners();
   const accountBalance = await ethers.provider.getBalance(account.address);
 
-  if (MERKLE_ROOT === undefined) {
-    console.log("change the value of the MERKLE_ROOT constant and run again.");
+  if (config.merkleRoot === undefined) {
+    console.log("change the value of the merkleRoot in the config file and run again.");
     process.exit(1);
   }
 
@@ -30,11 +28,11 @@ async function main() {
   console.log(`account: ${account.address}`);
   console.log(`token: ${token}`);
   console.log("account balance:", accountBalance.toString(), "(", ethers.utils.formatEther(accountBalance), ")");
-  console.log(`MERKLE_ROOT: ${MERKLE_ROOT}`);
+  console.log(`merkleRoot: ${config.merkleRoot}`);
   await prompt("do you want to deploy the StatusENSAirdrop contract?");
 
   const StatusENSAirdrop = await hre.ethers.getContractFactory("StatusENSAirdrop");
-  const contract = await StatusENSAirdrop.deploy(MERKLE_ROOT, token);
+  const contract = await StatusENSAirdrop.deploy(config.merkleRoot, token);
   await contract.deployed();
   console.log("StatusENSAirdrop deployed to:", contract.address);
 }

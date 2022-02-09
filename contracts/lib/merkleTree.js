@@ -16,7 +16,7 @@ class MerkleTree {
   }
 
   verify(proof, leaf) {
-    return this.tree.verify(proof, leaf, this.root.toString("hex"));
+    return this.tree.verify(proof, leaf, this.getRoot());
   }
 
   hashItem(item) {
