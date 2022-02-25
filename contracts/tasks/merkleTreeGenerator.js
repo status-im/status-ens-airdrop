@@ -11,11 +11,11 @@ task("generate-merkle-tree", "Generates Merkle Tree")
     const tree = new MerkleTree(data);
 
     const out = {
-      root: undefined,
+      merkleRoot: undefined,
       claims: {},
     };
 
-    out.root = tree.getRoot();
+    out.merkleRoot = tree.getRoot();
     data.forEach(item => {
       const leaf = tree.hashItem(item);
       const proof = tree.getProof(leaf);
@@ -26,5 +26,6 @@ task("generate-merkle-tree", "Generates Merkle Tree")
     });
 
     // console.log(tree.verify(proof, leaf))
-    console.log(util.inspect(out, { showHidden: false, depth: null }));
+    // console.log(util.inspect(out, { showHidden: false, depth: null }));
+    console.log(JSON.stringify(out, null, 2));
   });

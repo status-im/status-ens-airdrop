@@ -51,7 +51,7 @@ export default function(ownProps: Props) {
     </div>}
 
     {props.initialized && !props.claimed && props.contractError === undefined && <div>
-      <button onClick={claimHandler}>Claim now</button>
+      <button className="btn btn-primary" onClick={claimHandler}>Claim now</button>
     </div>}
   </>;
 }

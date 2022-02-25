@@ -4,11 +4,8 @@ const allConfig = require("../../lib/config");
 
 async function main() {
   const network = await ethers.provider.getNetwork();
-  const config = allConfig[network.name]
-
-  const isLocalNetwork = network.chainId === 31337;
-  let testERC20;
-  let token = config?.token;
+  const networkName = await hre.network.name;
+  const config = allConfig[networkName]
 
   const [account] = await ethers.getSigners();
   const accountBalance = await ethers.provider.getBalance(account.address);
@@ -18,23 +15,22 @@ async function main() {
     process.exit(1);
   }
 
-  if (isLocalNetwork) {
-    testERC20 = await deployTestERC20();
-    token = testERC20.address;
-  }
-
   console.log(`chainId: ${network.chainId}`);
-  console.log(`network: ${network.name}`);
+  console.log(`network: ${networkName} (from ethers: ${network.name})`);
   console.log(`account: ${account.address}`);
-  console.log(`token: ${token}`);
+  console.log(`token: ${config.token}`);
   console.log("account balance:", accountBalance.toString(), "(", ethers.utils.formatEther(accountBalance), ")");
   console.log(`merkleRoot: ${config.merkleRoot}`);
   await prompt("do you want to deploy the StatusENSAirdrop contract?");
 
   const StatusENSAirdrop = await hre.ethers.getContractFactory("StatusENSAirdrop");
-  const contract = await StatusENSAirdrop.deploy(config.merkleRoot, token);
+  const contract = await StatusENSAirdrop.deploy(config.merkleRoot, config.token);
   await contract.deployed();
   console.log("StatusENSAirdrop deployed to:", contract.address);
+
+  const contract2 = await StatusENSAirdrop.deploy(config.merkleRoot, config.token);
+  await contract2.deployed();
+  console.log("StatusENSAirdrop deployed to:", contract2.address);
 }
 
 async function deployTestERC20() {

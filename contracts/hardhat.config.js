@@ -33,6 +33,7 @@ module.exports = {
   networks: {
     local: {
       url: "http://127.0.0.1:8545",
+      // chainId: 1337,
     },
     rinkeby: {
       url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,

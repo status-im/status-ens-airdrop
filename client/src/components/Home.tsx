@@ -14,6 +14,7 @@ export default function() {
     distributionInitialized: state.distribution.initialized,
     account: state.web3.account,
     claim: state.distribution.claim,
+    contractAddress: state.contract.address,
   }), shallowEqual);
 
   useEffect(() => {
@@ -23,6 +24,9 @@ export default function() {
   }, [props.distributionInitialized, props.account]);
 
   return <>
+    <div>
+      Airdrop contract address: {props.contractAddress}
+    </div>
     <div>
       {props.distributionInitialized && props.claim == undefined && <div>
         Address not found

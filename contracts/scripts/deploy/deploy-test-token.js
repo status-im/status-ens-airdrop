@@ -3,12 +3,13 @@ const { prompt } = require("../../lib/utils");
 
 async function main() {
   const network = await ethers.provider.getNetwork();
+  const networkName = await hre.network.name;
 
   const [account] = await ethers.getSigners();
   const accountBalance = await ethers.provider.getBalance(account.address);
 
   console.log(`chainId: ${network.chainId}`);
-  console.log(`network: ${network.name}`);
+  console.log(`network: ${networkName} (from ethers: ${network.name})`);
   console.log(`account: ${account.address}`);
   console.log("account balance:", accountBalance.toString(), "(", ethers.utils.formatEther(accountBalance), ")");
   await prompt("do you want to deploy the TestERC20 contract?");

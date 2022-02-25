@@ -8,8 +8,7 @@ import {
 } from 'react-redux';
 import { initializeWeb3 } from "../actions/web3";
 
-import "../styles/reset.scss";
-import "../styles/layout.scss";
+import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 interface Props {
   children: JSX.Element
@@ -35,27 +34,38 @@ export default function(ownProps: Props) {
     dispatch(initializeWeb3());
   }
 
-  return <div className="main">
-    <header>
-      HEADER
-    </header>
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </div>
-    {props.web3Error !== undefined && <div>
-      {props.web3Error}
-    </div>}
+  return <div className="container">
+    <section className="row justify-content-lg-center">
+      <div className="col-12 col-lg-8">
+        <div className="card mt-5">
+          <div className="card-body">
+            <h5 className="card-title">
+              Status ENS Airdrop
+            </h5>
+            <div className="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            {props.web3Error !== undefined && <div>
+              {props.web3Error}
+            </div>}
 
-    {props.web3Initialized && <div>
-      Welcome {props.account} (chainID: {props.chainID})
-    </div>}
+            {props.web3Initialized && <div>
+              Welcome {props.account} (chainID: {props.chainID})
+            </div>}
 
-    {!props.web3Initialized && <div>
-      <button onClick={connectHandler}>CONNECT</button>
-    </div>}
+            {!props.web3Initialized && <div>
+              <button className="btn btn-primary" onClick={connectHandler}>CONNECT</button>
+            </div>}
 
-    <div>
-      {ownProps.children}
-    </div>
+            <div>
+              {ownProps.children}
+            </div>
+            <footer>
+              footer copy
+            </footer>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>;
 }

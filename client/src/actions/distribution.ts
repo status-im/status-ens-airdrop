@@ -1,6 +1,6 @@
-import config from "../config.json";
+import claimData from "../data.json";
 import { global } from '../global';
-import { Claim } from "../types";
+import { Claim, ClaimMap} from "../types";
 
 export const DISTRIBUTION_INITIALIZING = "DISTRIBUTION_INITIALIZING";
 export interface DistributionInitializingAction {
@@ -23,6 +23,7 @@ const distributionInitialized = (claim: Claim | undefined): DistributionActions 
 })
 
 export const initializeDistribution = (account: string) => {
-  const claim = config.data.claims[account];
+  const claims: ClaimMap = claimData.claims;
+  const claim = claims[account];
   return distributionInitialized(claim);
 }
