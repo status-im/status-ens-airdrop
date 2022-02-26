@@ -27,10 +27,6 @@ async function main() {
   const contract = await StatusENSAirdrop.deploy(config.merkleRoot, config.token);
   await contract.deployed();
   console.log("StatusENSAirdrop deployed to:", contract.address);
-
-  const contract2 = await StatusENSAirdrop.deploy(config.merkleRoot, config.token);
-  await contract2.deployed();
-  console.log("StatusENSAirdrop deployed to:", contract2.address);
 }
 
 async function deployTestERC20() {
