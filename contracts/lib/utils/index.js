@@ -2,6 +2,19 @@ const rl = require("readline");
 const { BigNumber } = require("@ethersproject/bignumber");
 const BN = n => BigNumber.from(n.toString());
 
+const erc20Utils = (decimals) => {
+  const one = BN("10").pow(BN(decimals));
+  const toUnits = v => BN(v).div(one);
+  const toUnitsS = v => toUnits(BN(v)).toString();
+  const fromUnits = u => BN(u).mul(one);
+
+  return {
+    toUnits,
+    toUnitsS,
+    fromUnits,
+  }
+}
+
 const prompt = async (question) => {
   // if (hre.network.name === "hardhat") {
   //   return;
@@ -47,4 +60,5 @@ module.exports = {
   prompt,
   prettyNum,
   addr0: "0x0000000000000000000000000000000000000000",
+  erc20Utils,
 };

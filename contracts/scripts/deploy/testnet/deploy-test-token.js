@@ -1,5 +1,5 @@
 const hre = require("hardhat");
-const { prompt } = require("../../lib/utils");
+const { prompt } = require("../../../lib/utils");
 
 async function main() {
   const network = await ethers.provider.getNetwork();
