@@ -9,6 +9,7 @@ import {
 import { initializeWeb3 } from "../actions/web3";
 
 import "../../node_modules/bootstrap/scss/bootstrap.scss";
+import "../styles/main.scss";
 
 interface Props {
   children: JSX.Element
@@ -35,31 +36,37 @@ export default function(ownProps: Props) {
   }
 
   return <div className="container">
+    {props.web3Error !== undefined && <div>
+      <div className="alert alert-danger col-12 col-lg-8 offset-lg-2" role="alert">
+        {props.web3Error}
+      </div>
+    </div>}
+
     <section className="row justify-content-lg-center">
       <div className="col-12 col-lg-8">
-        <div className="card mt-5">
+        <div className="main-card card mt-5">
           <div className="card-body">
             <h5 className="card-title">
-              Status ENS Airdrop
+              Claim your ENS tokens
             </h5>
-            <div className="card-text">
+            <div className="card-text mb-2">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </div>
-            {props.web3Error !== undefined && <div>
-              {props.web3Error}
-            </div>}
 
-            {props.web3Initialized && <div>
-              Welcome {props.account} (chainID: {props.chainID})
-            </div>}
+            {!props.web3Error && <>
+              {props.web3Initialized && <div className="mb-2">
+                Welcome {props.account} (chainID: {props.chainID})
+              </div>}
 
-            {!props.web3Initialized && <div>
+              <div>
+                {ownProps.children}
+              </div>
+              </>}
+
+            {!props.web3Initialized && <div className="my-2">
               <button className="btn btn-primary" onClick={connectHandler}>CONNECT</button>
             </div>}
 
-            <div>
-              {ownProps.children}
-            </div>
             <footer>
               footer copy
             </footer>

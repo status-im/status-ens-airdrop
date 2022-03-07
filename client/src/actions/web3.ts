@@ -83,6 +83,7 @@ export const initializeWeb3 = () => {
       window.ethereum.request({ method: 'eth_requestAccounts' })
       .then(() => {
         //FIXME: fix dispatch<any>
+        window.ethereum.on('chainChanged', () => window.location.reload());
         dispatch<any>(loadWeb3Data());
       })
       .catch((err: string) => {

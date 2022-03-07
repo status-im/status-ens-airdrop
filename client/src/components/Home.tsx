@@ -25,11 +25,8 @@ export default function() {
 
   return <>
     <div>
-      Airdrop contract address: {props.contractAddress}
-    </div>
-    <div>
       {props.distributionInitialized && props.claim == undefined && <div>
-        Address not found
+        <span className="badge bg-danger">You are not eligible for the airdrop</span>
       </div>}
 
       {props.distributionInitialized && props.claim !== undefined && <div>
