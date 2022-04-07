@@ -8,13 +8,15 @@ contract StatusENSAirdrop {
   event Claimed(uint256 index, address account, uint256 amount);
 
   address public immutable token;
+  address public owner;
   bytes32 public immutable merkleRoot;
 
   mapping(uint256 => uint256) private claimedBitMap;
 
-  constructor(bytes32 _merkleRoot, address _token) {
+  constructor(bytes32 _merkleRoot, address _token, address _owner) {
     merkleRoot = _merkleRoot;
     token = _token;
+    owner = _owner;
   }
 
   function isClaimed(uint256 index) public view returns (bool) {
@@ -43,5 +45,10 @@ contract StatusENSAirdrop {
     require(IERC20(token).transfer(account, amount), 'StatusENSAirdrop: Transfer failed.');
 
     emit Claimed(index, account, amount);
+  }
+
+  function emergencyWithdrawToken(address _token, address _to) public {
+    require(msg.sender == owner, "not owner");
+    IERC20(_token).transfer(_to, IERC20(_token).balanceOf(address(this)));
   }
 }
