@@ -27,6 +27,6 @@ rule only_claim_transfers {
     f(e, args);
 
     assert balance != token.balanceOf(addr)
-        => f.selector != claim(uint256,address,uint256,bytes32[]).selector;
+        => f.selector == claim(uint256,address,uint256,bytes32[]).selector;
 }
 
