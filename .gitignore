@@ -7,3 +7,8 @@ typechain
 #Hardhat files
 cache
 artifacts
+
+# certora files
+.certora*
+.last_confs
+resource_errors.json

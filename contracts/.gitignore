@@ -1,7 +1,3 @@
 /lib/config.js
 /tmp
 
-# certora cruft
-.certora*
-.last_confs
-resource_errors.json
