@@ -6,6 +6,27 @@ methods {
     token.balanceOf(address) returns uint256 envfree;
 }
 
+ghost mathint unclaimed_merkle_funds; 
+
+hook Sstore claimedBitMap[KEY uint256 index] uint256 bitmap (uint256 old_bitmap) STORAGE {
+    // can't actually update ghost because we don't know what the amount of the claim is
+    unclaimed_merkle_funds = ??
+}
+
+invariant solvency()
+    token.balanceOf(currentContract) >= unclaimed_merkle_funds
+
+
+// if ENS balance of current contract goes down by Δ,
+//   - * it only happens in the claim(index,account,amount,proof) method
+//   - * amt should be Δ
+//   - * index should have been unclaimed before
+//   - * index should be claimed after
+//   - * account's balance should increase by Δ
+//   - ? proof is in the merkle tree
+
+
+
 rule once_claimed_always_claimed {
     uint256 index;
 
@@ -29,4 +50,7 @@ rule only_claim_transfers {
     assert balance != token.balanceOf(addr)
         => f.selector == claim(uint256,address,uint256,bytes32[]).selector;
 }
+
+
+
 
