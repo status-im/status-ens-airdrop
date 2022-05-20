@@ -6,7 +6,7 @@ methods {
     token.balanceOf(address) returns uint256 envfree;
 }
 
-ghost mathint unclaimed_merkle_funds; 
+/* ghost mathint unclaimed_merkle_funds; 
 
 hook Sstore claimedBitMap[KEY uint256 index] uint256 bitmap (uint256 old_bitmap) STORAGE {
     // can't actually update ghost because we don't know what the amount of the claim is
@@ -15,7 +15,7 @@ hook Sstore claimedBitMap[KEY uint256 index] uint256 bitmap (uint256 old_bitmap)
 
 invariant solvency()
     token.balanceOf(currentContract) >= unclaimed_merkle_funds
-
+*/
 
 // if ENS balance of current contract goes down by Δ,
 //   - * it only happens in the claim(index,account,amount,proof) method
