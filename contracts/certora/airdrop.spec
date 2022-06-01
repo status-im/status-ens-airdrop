@@ -6,17 +6,6 @@ methods {
     token.balanceOf(address) returns uint256 envfree;
 }
 
-/* ghost mathint unclaimed_merkle_funds; 
-
-hook Sstore claimedBitMap[KEY uint256 index] uint256 bitmap (uint256 old_bitmap) STORAGE {
-    // can't actually update ghost because we don't know what the amount of the claim is
-    unclaimed_merkle_funds = ??
-}
-
-invariant solvency()
-    token.balanceOf(currentContract) >= unclaimed_merkle_funds
-*/
-
 // if ENS balance of current contract goes down by Δ,
 //   - * it only happens in the claim(index,account,amount,proof) method
 //   - * amt should be Δ
@@ -26,6 +15,17 @@ invariant solvency()
 //   - ? proof is in the merkle tree
 
 
+// TODO: this rule may be passing vacuously (it fails rule_sanity)
+rule successful_claim_requires_verification {
+    env e;
+    uint256 index; address account; uint256 amount; bytes32[] proof;
+    require 1 <= proof.length && proof.length <= 2;
+
+    claim(e, index, account, amount, proof);
+
+    assert _verify(e, index, account, amount, proof),
+        "if claim is successful, encoded request must be verified";
+}
 
 rule once_claimed_always_claimed {
     uint256 index;

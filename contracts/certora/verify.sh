@@ -1,9 +1,12 @@
 certoraRun \
-    contracts/StatusENSAirdrop.sol \
+    certora/StatusENSAirdropHarness.sol \
     contracts/TestERC20.sol \
-    --verify StatusENSAirdrop:certora/airdrop.spec \
+    --verify StatusENSAirdropHarness:certora/airdrop.spec \
+    --link StatusENSAirdropHarness:token=TestERC20 \
     --solc solc8.10 \
     --loop_iter 3 --optimistic_loop \
     --settings -useBitVectorTheory \
-    --link StatusENSAirdrop:token=TestERC20
+    --rule successful_claim_requires_verification \
+    --send_only \
+    --msg "no message"
 
