@@ -19,7 +19,6 @@ methods {
 rule successful_claim_requires_verification {
     env e;
     uint256 index; address account; uint256 amount; bytes32[] proof;
-    require 1 <= proof.length && proof.length <= 2;
 
     claim(e, index, account, amount, proof);
 
