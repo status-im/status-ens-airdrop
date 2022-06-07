@@ -10,7 +10,7 @@ contract StatusENSAirdropHarness is StatusENSAirdrop {
     public view
     returns (bool)
   {
-    return MerkleProof.verify(proof, encode(index, account, amount), merkleRoot);
+    return MerkleProof.verify(proof, merkleRoot, encode(index, account, amount));
   }
   
   function encode(uint256 index, address account, uint256 amount)
