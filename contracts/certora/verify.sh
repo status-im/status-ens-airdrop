@@ -8,5 +8,6 @@ certoraRun \
     --settings -useBitVectorTheory \
     --rule successful_claim_requires_verification \
     --send_only \
+    --staging \
     --msg "no message"
 
